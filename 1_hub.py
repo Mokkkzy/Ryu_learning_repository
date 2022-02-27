@@ -35,7 +35,7 @@ class L2Switch(app_manager.RyuApp):
         print('in_port:{0}'.format(in_port))
         
         out = ofp_parser.OFPPacketOut(
-            datapath = dp, buffer_id = msg.buff_id, in_port = in_port,
+            datapath = dp, buffer_id = msg.buffer_id, in_port = in_port,
             actions = actions,data = data
         )
         dp.send_msg(out)
