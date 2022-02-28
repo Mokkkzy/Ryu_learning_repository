@@ -6,7 +6,7 @@ from mininet.log import setLogLevel
 
 class ECMP_round_request(Topo):
     "ECMP_RR_Test is processing."
-    def build(self):
+    def __init__(self):
         switch = []
         host = []
         for s in range(6):
@@ -25,16 +25,6 @@ class ECMP_round_request(Topo):
         self.addLink(host[3],switch[2])
         self.addLink(host[4],switch[2])
         
-def ECMP_RR_TEST():
-    "Creating Topo."
-    topo = ECMP_round_request()
-    net = Mininet(topo)
-    net.start()
-    print("Dumping host connections")
-    dumpNodeConnections(net.hosts)
-    net.pingAll()
-    net.stop()
+topos = {"mytopo":(lambda:ECMP_round_request())}
     
-if __name__ == '__main__':
-    setLogLevel('info')
-    ECMP_RR_TEST()        
+            
