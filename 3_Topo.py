@@ -14,11 +14,11 @@ class MyTopo (Topo):
         
         
         self.addLink(host1,switch3)
-        self.addLink(host2,switch3)
         self.addLink(switch3,switch1)
-        self.addLink(switch1,switch4)
         self.addLink(switch3,switch2)
+        self.addLink(switch1,switch4)
         self.addLink(switch2,switch4)
+        self.addLink(switch4,host2)
 
         
 topos = {"mytopo":(lambda:MyTopo())}
