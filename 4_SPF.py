@@ -29,7 +29,7 @@ class PathForward(app_manager.RyuApp):
         command = ofp.OFPFC_ADD
         instruction = [ofp_parser.OFPInstructionActions(ofp.OFPIT_APPLY_ACTIONS, actions)]
         req = ofp_parser.OFPFlowMod(datapath=datapath, command=command,
-                                    priority=priority, match=match,instruction=instruction)    
+                                    priority=priority, match=match,instructions=instruction)    
         datapath.send_msg(req)
         
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures,CONFIG_DISPATCHER)
@@ -70,12 +70,12 @@ class PathForward(app_manager.RyuApp):
         
         if src not in self.G:
             self.G.add_node(src)
-            self.G.add_edge(dpid, src, attr_ditc={'port':in_port})
+            self.G.add_edge(dpid, src, attr_dict={'port':in_port})
             self.G.add_edge(src, dpid)
             
         if dst in self.G:
             path = nx.shortest_path(self.G, src, dst)
-            next_hop = path[path.index(dpid)+1]
+            next_hop = path[path.index(dpid)]
             out_port = self.G[dpid][next_hop]['attr_dict']['port']
             print(path)
         else:
